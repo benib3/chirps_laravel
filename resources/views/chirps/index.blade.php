@@ -11,9 +11,9 @@
             <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
         </form>
 
-        <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+        <div class="mt-6">
             @foreach ($chirps as $chirp)
-                <div class="p-6 flex space-x-2 ">
+                <div class="p-6 flex space-x-2  bg-white  rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
@@ -26,7 +26,7 @@
                                     <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                                 @endunless
                             </div>
-                            @if ($chirp->user->is(auth()->user()))
+
                                 <x-dropdown>
                                     <x-slot name="trigger">
                                         <button>
@@ -36,6 +36,11 @@
                                         </button>
                                     </x-slot>
                                     <x-slot name="content">
+
+                                       <x-dropdown-link class="cursor-pointer" @click.prevent="openModal">
+                                            {{ __('Comment') }}
+                                        </x-dropdown-link>
+                                        @if ($chirp->user->is(auth()->user()))
                                         <x-dropdown-link :href="route('chirps.edit', $chirp)">
                                             {{ __('Edit') }}
                                         </x-dropdown-link>
@@ -46,17 +51,32 @@
                                                 {{ __('Delete') }}
                                             </x-dropdown-link>
                                         </form>
+                                          @endif
                                     </x-slot>
                                 </x-dropdown>
-                            @endif
+
                         </div>
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
                     </div>
                 </div>
+                <div class="flex justify-end p-2 mb-2 rounded-lg gap-2">
+                   <a href="{{route('chirp.comments.index', ['chirp' => $chirp->id])}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer h-6 w-6 text-white -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    </a>
+                    <span class="mr-1 text-white">{{$chirp->comments_count}}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer h-6 w-6 text-white -scale-x-100"  fill="currentColor"  viewBox="0 0 16 16">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                    <span class="mr-1 text-white">6</span>
+                </div>
             @endforeach
+
         </div>
         <div class="mt-1">
-        {{ $chirps->links()}}
+            {{ $chirps->links()}}
         </div>
     </div>
+    @include('comments.create')
 </x-app-layout>

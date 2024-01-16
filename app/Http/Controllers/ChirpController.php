@@ -18,8 +18,11 @@ class ChirpController extends Controller
      */
     public function index():View
     {
+        // coomments count on chirp
+
         return view('chirps.index', [
-            'chirps' => Chirp::with('user')->latest()->paginate(5),
+            'chirps' => Chirp::with('user')->withCount('comments')->latest()->paginate(5),
+            'comments' => 1,
         ]);
     }
 

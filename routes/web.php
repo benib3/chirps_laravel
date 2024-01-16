@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
 Route::resource('chirps', ChirpController::class)
     ->only(['index','store','update','edit','destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('chirp.comments', CommentController::class)
+    ->only(['index','create','store','destroy'])
+    ->middleware(['auth', 'verified']);
+
 
 
 require __DIR__.'/auth.php';

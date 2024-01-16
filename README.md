@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## TODO STUFF
+
+1. [ ] CREATE PAGINATION FOR CHIRPS
+2. [ ] ADD PROFILE IMAGE
+3. [ ] ADD COMMENTS TO CHIRPS
+4. [ ] ADD LIKES AND LIKED BY WHO
+5. [ ] ADD CHAT :)
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

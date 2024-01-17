@@ -12,11 +12,16 @@
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
+   <!-- PROFILE IMAGE -->
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    @if($user->img)
+        <div class="flex justify-center">
+            <img src=" {{ asset('storage/images/' . $user->img) }} " alt="image" class="mt-5 rounded-lg w-96 h-96 object-cover">
+        </div>
+    @endif
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
-
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
@@ -47,6 +52,12 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="profileImage" :value="__('Profile image')" />
+            <input id="profileImage" name="profileImage" type="file" accept="image/*"/>
+        </div>
+
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
@@ -61,4 +72,6 @@
             @endif
         </div>
     </form>
+
+
 </section>

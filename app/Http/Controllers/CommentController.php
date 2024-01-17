@@ -24,7 +24,7 @@ class CommentController extends Controller
         //
         $comments = Comment::where('chirp_id', $request->chirp)
         ->leftJoin('users', 'comments.user_id', '=', 'users.id')
-        ->select('comments.*', 'users.name as username')
+        ->select('comments.*', 'users.name as username','users.img as userimg')
         ->whereNull('comments.deleted_at')
         ->orderBy('created_at', 'desc')
         ->paginate(3);

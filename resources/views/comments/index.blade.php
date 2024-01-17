@@ -61,8 +61,8 @@
             @foreach ($comments as $comment)
             <div class="relative grid grid-cols-1 gap-4 mt-1 p-5 mb-4 border rounded-lg bg-white shadow-lg">
                 <div class="relative flex gap-4">
-                    <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
-                    class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy">
+                    <img src="{{ asset('storage/images/' . $comment->userimg) }}"
+                    class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="Profile Img" loading="lazy">
                     <div class="flex flex-col w-full">
                     @if ($comment->user->is(auth()->user()))
                         <div class="absolute top-0 right-0 ">
@@ -85,7 +85,9 @@
                         <p class="text-gray-400 text-sm">{{ $comment->created_at->format('j M Y, g:i a')  }}</p>
                     </div>
                 </div>
-                <p class="-mt-4 text-gray-500">{{ $comment->comment }}</p>
+
+                <p class="mt-2 ml-2 text-gray-500">{{ $comment->comment }}</p>
+
             </div>
             @endforeach
         @endif

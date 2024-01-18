@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chirp;
 use App\Models\Like;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class LikeController extends Controller
 {
@@ -12,6 +17,7 @@ class LikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -31,11 +37,28 @@ class LikeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
-        //
+        DB::beginTransaction();
+        try{
+
+            // save liked chirp to likes table
+            error_log($request->chirp);
+
+            $like = new Like();
+            $like->insert(Auth::id(), $request->chirp);
+
+            DB::commit();
+
+            return back();
+            }catch(\Exception $e){
+                DB::rollBack();
+                error_log($e);
+            }
+
+
     }
 
     /**

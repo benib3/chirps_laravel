@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,10 @@ Route::resource('chirps', ChirpController::class)
 
 Route::resource('chirp.comments', CommentController::class)
     ->only(['index','create','store','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('chirp.likes', LikeController::class)
+    ->only(['store','destroy'])
     ->middleware(['auth', 'verified']);
 
 

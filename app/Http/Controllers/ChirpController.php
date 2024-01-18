@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class ChirpController extends Controller
 {
@@ -18,11 +19,19 @@ class ChirpController extends Controller
      */
     public function index():View
     {
-        // coomments count on chirp
-
+        // chirps with comments and likes
+        // also if user already liked chirp or not
         return view('chirps.index', [
-            'chirps' => Chirp::with('user')->withCount('comments')->latest()->paginate(5),
-            'comments' => 1,
+            'chirps' => Chirp::with('user')
+                        ->withCount('comments')
+                        ->withCount('likes')
+                        ->with(['likes' => function($query) {
+                            $query->where('user_id', Auth::id())
+                                ->select('chirp_id');
+                        }])
+
+                        ->latest()
+                        ->paginate(5),
         ]);
     }
 

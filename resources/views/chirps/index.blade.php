@@ -25,7 +25,6 @@
                                     <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                                 @endunless
                             </div>
-
                                 <x-dropdown>
                                     <x-slot name="trigger">
                                         <button>
@@ -58,24 +57,47 @@
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
                     </div>
                 </div>
+
                 <div class="flex justify-end p-2 mb-2 rounded-lg gap-2">
-                   <a href="{{route('chirp.comments.index', ['chirp' => $chirp->id])}}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer h-6 w-6 text-white -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
+
+
+                    <a href=" {{route('chirp.comments.index', ['chirp' => $chirp->id])}} ">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer h-6 w-6 text-white -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
                     </a>
+
+                    {{-- Comments counter --}}
                     <span class="mr-1 text-white">{{$chirp->comments_count}}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer h-6 w-6 text-white -scale-x-100"  fill="currentColor"  viewBox="0 0 16 16">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>
-                    <span class="mr-1 text-white">6</span>
+
+                    @include('chirps.partials.form-likes')
+
+                    {{-- Likes counter --}}
+                    <span class="mr-1 text-white">{{$chirp->likes_count}}</span>
                 </div>
             @endforeach
 
         </div>
+
         <div class="mt-1">
             {{ $chirps->links()}}
         </div>
     </div>
     @include('comments.create')
 </x-app-layout>
+
+<script>
+    // When the page is loaded
+        window.onload = function() {
+            // If there's a scroll position in sessionStorage, scroll to it
+            if (sessionStorage.scrollPosition) {
+                window.scrollTo(0, sessionStorage.scrollPosition);
+            }
+        }
+
+        // Before the page is unloaded (refreshed)
+        window.onbeforeunload = function() {
+            // Store the current scroll position in sessionStorage
+            sessionStorage.scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        }
+</script>

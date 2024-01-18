@@ -23,13 +23,14 @@ class ChirpController extends Controller
         // also if user already liked chirp or not
         return view('chirps.index', [
             'chirps' => Chirp::with('user')
-                        ->withCount('comments')
+                        ->withCount(['comments' => function ($query) {
+                            $query->whereNull('deleted_at');
+                        }])
                         ->withCount('likes')
                         ->with(['likes' => function($query) {
                             $query->where('user_id', Auth::id())
-                                ->select('chirp_id');
+                                  ->select('chirp_id');
                         }])
-
                         ->latest()
                         ->paginate(5),
         ]);

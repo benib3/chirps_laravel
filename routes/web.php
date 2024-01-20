@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,11 @@ Route::resource('chirp.likes', LikeController::class)
     ->only(['store','destroy'])
     ->middleware(['auth', 'verified']);
 
-
+// Trying route in a different way
+Route::prefix('chirps')->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chirps.chat.index');
+    Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chirps.chat.show');
+    Route::post('/chat/{user}', [ChatController::class, 'store'])->name('chirps.chat.store');
+})->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

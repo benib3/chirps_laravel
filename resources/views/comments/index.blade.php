@@ -62,10 +62,10 @@
             <div class="relative grid grid-cols-1 gap-4 mt-1 p-5 mb-4 border rounded-lg bg-white shadow-lg">
                 <div class="relative flex gap-4">
                     <img src="{{ asset('storage/images/' . $comment->userimg) }}"
-                    class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="Profile Img" loading="lazy">
+                    class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20 object-cover" alt="Profile Img" loading="lazy">
                     <div class="flex flex-col w-full">
-                    @if ($comment->user->is(auth()->user()))
-                        <div class="absolute top-0 right-0 ">
+                    @if ($chirp->user->is(auth()->user()) || $comment->user->is(auth()->user()))
+                        <div class="absolute top-0 right-0">
                            <form method="POST" action="{{ route('chirp.comments.destroy', ['chirp'=> $chirp,'comment'=> $comment]) }}" class="">
                             @csrf
                             @method('delete')

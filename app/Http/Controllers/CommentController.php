@@ -144,7 +144,7 @@ class CommentController extends Controller
         DB::beginTransaction(); // begin the transaction
         try{
 
-            Comment::where('id', $comment->id)->update(['deleted_at' => now()]);
+            Comment::where('id', $comment->id)->delete();
             DB::commit(); // commit the transaction
         }catch(\Exception $e){
             DB::rollback(); // rollback the transaction

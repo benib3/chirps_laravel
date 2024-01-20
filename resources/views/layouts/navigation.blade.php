@@ -17,10 +17,14 @@
                     </x-nav-link>
                 </div>
             </div>
-
-            <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')" class="text-red-400">
-                    {{ __('Chirps') }}
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
+                <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')" class="text-red-400">
+                        {{ __('Chirps') }}
                 </x-nav-link>
+                <x-nav-link  :href="route('chirps.chat.index')" :active="request()->routeIs('chirps.chat.index')" class="text-red-400">
+                    {{ __('Chat') }}
+                </x-nav-link >
+             </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6 ">
                 <x-dropdown align="right" width="48">
@@ -79,9 +83,14 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-  <x-responsive-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
-        {{ __('Chirps') }}
-    </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
+                {{ __('Chirps') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('chirps.chat.index')" :active="request()->routeIs('chirps.chat.index')">
+                {{ __('Chat') }}
+            </x-responsive-nav-link>
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">

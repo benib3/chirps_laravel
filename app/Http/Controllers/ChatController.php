@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use App\Models\Chirp;
-use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +51,31 @@ class ChatController extends Controller
         $user = $request->user;
         $chat_user = User::find($user);
 
-        return view('chat.show', ['chat_user' => $chat_user]);
+        $messages_sent = Chat::where('from_id', Auth::user()->id)
+            ->where('to_id', $user)
+            ->select('text','created_at','from_id') // Only select the 'text' column
+            ->get();
+
+        $messages_received = Chat::where('from_id', $user)
+            ->where('to_id', Auth::user()->id)
+            ->select('text','created_at') // Only select the 'text' column
+            ->get();
+
+
+        return view('chat.show', ['chat_user' => $chat_user, 'messages_sent' => $messages_sent, 'messages_received' => $messages_received]);
     }
+
+    public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'text' => ['required', 'max:255'],
+            ]);
+            $message = new Chat;
+            $message->from_id = Auth::id();
+            $message->to_id = $request->user;
+            $message->text = $request->input('text');
+            $message->save();
+
+            return back();
+        }
 }

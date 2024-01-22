@@ -11,6 +11,12 @@
             <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
         </form>
 
+    @if ($chirps->isEmpty())
+        <div class="mt-6">
+                <p class="mt-4 text-lg text-gray-400">{{ __('There are no chirps yet.') }}</p>
+        </div>
+    @else
+
         <div class="mt-6">
             @foreach ($chirps as $chirp)
 
@@ -84,6 +90,8 @@
         </div>
     </div>
     @include('comments.create')
+
+    @endif
 </x-app-layout>
 
 <script>

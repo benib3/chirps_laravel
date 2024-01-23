@@ -7,17 +7,15 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## TODO STUFF
+## FEATURES
 
 1. [X] CREATE PAGINATION FOR CHIRPS
 2. [X] ADD PROFILE IMAGE
 3. [X] ADD COMMENTS TO CHIRPS
 4. [X] ADD LIKES AND LIKED BY WHO
-5. [ ] **MINI CHAT**
-6. [ ] OP OF CHIRP CAN CHAT ONLY WITH USERS WHO LIKED HIS CHIRPS/COMMENTED
-7. [ ] HE SENDS A MESSAGE USING CHAT POP UP
-8. [ ] USER 2 GETS NOTIFIED
-9. [ ] USER 2 CAN RESPONDE TO CHAT WITH THE USER 1
+5. [X] **MINI CHAT**
+6. [X] OP OF CHIRP CAN CHAT ONLY WITH USERS WHO LIKED HIS COMMENTED
+
 
 ## About Laravel
 

@@ -37,9 +37,9 @@
                                 </svg>
                             </div>
                              @if( Auth::user()->img)
-
-                            <img src=" {{ asset('storage/images/' .  Auth::user()->img) }} " alt="image" class="object-cover w-10 h-10 rounded-full ring-2 ring-gray-300 ml-2">
-
+                                <img src=" {{ asset('storage/images/' .  Auth::user()->img) }} " alt="image" class="object-cover w-10 h-10 rounded-full ring-2 ring-gray-300 ml-2">
+                            @else
+                                <img src=" https://images.unsplash.com/photo-1615012553971-f7251c225e01?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D " alt="image" class="object-cover w-10 h-10 rounded-full ring-2 ring-gray-300 ml-2">
                             @endif
                         </button>
                     </x-slot>

@@ -21,7 +21,11 @@
             @foreach ($chirps as $chirp)
 
                 <div class="p-6 flex space-x-2  bg-white rounded-lg shadow-sm dark:shadow-gray-400 ">
-                    <img src=" {{ asset('storage/images/' . $chirp->user->img) }} " alt="image" class="mr-2 rounded-lg w-20 h-20 object-cover">
+                    @if($chirp->user->img)
+                        <img src=" {{ asset('storage/images/' . $chirp->user->img) }} " alt="image" class="mr-2 rounded-lg w-20 h-20 object-cover">
+                    @else
+                        <img src=" https://images.unsplash.com/photo-1615012553971-f7251c225e01?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D " alt="image" class="mr-2 rounded-lg w-20 h-20 object-cover">
+                    @endif
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
                             <div class="mt-1">

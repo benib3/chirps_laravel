@@ -61,8 +61,16 @@
             @foreach ($comments as $comment)
             <div class="relative grid grid-cols-1 gap-4 mt-1 p-5 mb-4 border rounded-lg bg-white shadow-lg">
                 <div class="relative flex gap-4">
-                    <img src="{{ asset('storage/images/' . $comment->userimg) }}"
-                    class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20 object-cover" alt="Profile Img" loading="lazy">
+                    @if ($comment -> userimg)
+
+                        <img src="{{ asset('storage/images/' . $comment->userimg) }}"
+                        class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20 object-cover" alt="Profile Img" loading="lazy">
+                    @else
+
+                         <img src=" https://images.unsplash.com/photo-1615012553971-f7251c225e01?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D " alt="image" class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20 object-cover">
+
+                    @endif
+
                     <div class="flex flex-col w-full">
                     @if ($chirp->user->is(auth()->user()) || $comment->user->is(auth()->user()))
                         <div class="absolute top-0 right-0">

@@ -1,27 +1,28 @@
-<x-dropdown align="right" width="48">
-            <x-slot name="trigger">
-                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-500 hover:text-white focus:outline-none transition ease-in-out duration-150">
-                    {{-- User selected --}}
-                    <div>List of users</div>
-                    <div class="ml-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
+<div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">List of users</h5>
+   </div>
+   <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            @foreach ($users as $user)
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img class="w-8 h-8 rounded-full" src="{{ asset('storage/images/' .  $user->img) }}" alt="Profile image">
                     </div>
-                </button>
-            </x-slot>
-
-            <x-slot name="content">
-                {{-- users list --}}
-                {{-- for each user connected to logged user display name --}}
-                    @foreach ($users as $user)
-                        <x-dropdown-link :href="route('chirps.chat.show',['user' => $user->id]) ">
-                                {{ $user->name}}
-                        </x-dropdown-link>
-                    @endforeach
-
-            </x-slot>
-</x-dropdown>
-
-
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            {{$user->name}}
+                        </p>
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                            {{$user->email}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+            @endforeach
+        </ul>
+   </div>
+  {{ $users->links()}}
+</div>
 

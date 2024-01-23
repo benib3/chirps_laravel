@@ -7,41 +7,17 @@ use App\Models\Chirp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 class ChatController extends Controller
 {
     //
     public function index(Request  $request):View
     {
-        //return list of users that can chat with auth user with view
-        //Auth user can only chat with users who commented on some of his chirps
+        //get all users
+        $users = User::where('id', '!=', Auth::id())->paginate(5);
 
-        //get all chirps of auth user
-            $chirps = Chirp::where('user_id', Auth::user()->id)
-                        ->with(['comments' => function($query){
-                            $query->select('chirp_id','user_id');
-                            $query->whereNull('deleted_at');
-                            $query->where('user_id', '!=', Auth::user()->id);
-                            $query->with(['user' => function($query){
-                                $query->select('id','name');
-
-                            }]);
-                        }])
-
-                        ->get();
-
-            // Get user IDs from comments on chirps
-            $userIds = [];
-            foreach ($chirps as $chirp) {
-                foreach ($chirp->comments as $comment) {
-                    $userIds[] = $comment->user;
-                }
-            }
-
-            // Remove duplicates
-            $userIds = array_unique($userIds);
-
-        return view('chat.index', ['users' => $userIds]);
+        return view('chat.index', ['users' => $users]);
     }
 
 

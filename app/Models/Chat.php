@@ -10,6 +10,8 @@ class Chat extends Model
     use HasFactory;
 
     protected $table = 'chat';
+    protected $fillable = ['from_id', 'to_id', 'text', 'is_read'];
+
     //from message
     public function from()
     {
@@ -20,5 +22,11 @@ class Chat extends Model
     public function to()
     {
         return $this->belongsTo(User::class, 'to_id');
+    }
+
+    public function setRead()
+    {
+        $this->is_read = true;
+        $this->save();
     }
 }
